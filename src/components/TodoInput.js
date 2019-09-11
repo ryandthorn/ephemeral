@@ -10,12 +10,18 @@ const TodoInput = props => {
     const newTodos = [...props.todos];
     newTodos.push(todoText);
     props.setTodos(newTodos);
+    setTodoText("");
   };
+
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <fieldset>
         <legend>Enter a task</legend>
-        <Input autoFocus onChange={e => setTodoText(e.target.value)}></Input>
+        <Input
+          value={todoText}
+          autoFocus
+          onChange={e => setTodoText(e.target.value)}
+        ></Input>
         <Button variant="contained" color="primary" type="submit">
           Add
         </Button>

@@ -24,6 +24,13 @@ const TodoList = props => {
     setChecked(newChecked);
   };
 
+  const handleDelete = e => {
+    const index = e.currentTarget.value;
+    const newTodos = [...props.todos];
+    newTodos.splice(index, 1);
+    props.setTodos(newTodos);
+  };
+
   return (
     <List>
       {props.todos.map((text, value) => {
@@ -46,7 +53,12 @@ const TodoList = props => {
             </ListItemIcon>
             <ListItemText id={labelId} primary={text} />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete">
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                value={value}
+                onClick={handleDelete}
+              >
                 <DeleteIcon />
               </IconButton>
             </ListItemSecondaryAction>

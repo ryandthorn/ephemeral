@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="App">
       <TodoInput todos={todos} setTodos={setTodos}></TodoInput>
-      <TodoList todos={todos}></TodoList>
+      <TodoList todos={todos} setTodos={setTodos}></TodoList>
     </div>
   );
 };
