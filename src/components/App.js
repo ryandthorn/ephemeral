@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import TodoInput from "./TodoInput";
 
-function App () {
-  return <div className='App'>Ephemeral</div>
-}
+const App = () => (
+  <div className="App">
+    <TodoInput></TodoInput>
+  </div>
+);
 
-export default App
+export default App;
