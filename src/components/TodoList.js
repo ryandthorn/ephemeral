@@ -8,8 +8,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const TodoList = () => {
-  const [checked, setChecked] = React.useState([0]);
+const TodoList = props => {
+  const [checked, setChecked] = React.useState([]);
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -26,9 +26,8 @@ const TodoList = () => {
 
   return (
     <List>
-      {[0, 1, 2].map(value => {
+      {props.todos.map((text, value) => {
         const labelId = `checkbox-list-label-${value}`;
-
         return (
           <ListItem
             key={value}
@@ -42,11 +41,10 @@ const TodoList = () => {
                 edge="start"
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
-                disableRipple
                 inputProps={{ "aria-labelledby": labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={labelId} primary={`Todo ${value + 1}`} />
+            <ListItemText id={labelId} primary={text} />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="delete">
                 <DeleteIcon />
