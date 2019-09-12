@@ -1,5 +1,5 @@
 import React from "react";
-import TodoInput from "./TodoInput";
+import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <TodoInput todos={todos} setTodos={setTodos}></TodoInput>
+      <TodoForm todos={todos} setTodos={setTodos}></TodoForm>
       <TodoList todos={todos} setTodos={setTodos}></TodoList>
     </div>
   );

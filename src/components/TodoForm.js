@@ -2,7 +2,7 @@ import React from "react";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 
-const TodoInput = props => {
+const TodoForm = props => {
   const [todoText, setTodoText] = React.useState("");
 
   const handleSubmit = event => {
@@ -29,4 +29,4 @@ const TodoInput = props => {
     </form>
   );
 };
-export default TodoInput;
+export default TodoForm;
