@@ -7,9 +7,9 @@ const TodoForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const newTodos = [...props.todos];
-    newTodos.push(todoText);
-    props.setTodos(newTodos);
+    const newTodo = { text: todoText, isCompleted: false };
+    const updatedTodos = [...props.todos, newTodo];
+    props.setTodos(updatedTodos);
     setTodoText("");
   };
 

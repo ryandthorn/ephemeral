@@ -3,7 +3,9 @@ import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
 const App = () => {
-  const [todos, setTodos] = React.useState([]);
+  const [todos, setTodos] = React.useState([
+    { text: "Example", isCompleted: false }
+  ]);
 
   return (
     <div className="App">
