@@ -1,6 +1,7 @@
 import React from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
+import Container from "@material-ui/core/Container";
 
 const App = () => {
   const [todos, setTodos] = React.useState([
@@ -8,10 +9,10 @@ const App = () => {
   ]);
 
   return (
-    <div className="App">
+    <Container className="App" maxWidth="sm">
       <TodoForm todos={todos} setTodos={setTodos}></TodoForm>
       <TodoList todos={todos} setTodos={setTodos}></TodoList>
-    </div>
+    </Container>
   );
 };
 
