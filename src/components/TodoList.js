@@ -8,45 +8,38 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
 
-const TodoList = props => {
-  const handleDone = e => {
-    // To do
-    console.log(`Todo ${e.currentTarget.value}`);
+const TodoList = ({ todos, deleteTodo, completeTodo }) => {
+  const handleDone = event => {
+    const id = Number(event.currentTarget.value);
+    completeTodo(id);
   };
-  const handleDelete = e => {
-    const index = e.currentTarget.value;
-    const newTodos = [...props.todos];
-    newTodos.splice(index, 1);
-    props.setTodos(newTodos);
+  const handleDelete = event => {
+    const id = Number(event.currentTarget.value);
+    deleteTodo(id);
   };
 
-  return (
-    <List>
-      {props.todos.map((todo, index) => {
-        const labelId = `todo-label-${index}`;
-        return (
-          <ListItem key={index} role={undefined} dense>
-            <ListItemText id={labelId} primary={todo.text} />
-            <ListItemIcon>
-              <IconButton aria-label="done" value={index} onClick={handleDone}>
-                <DoneIcon />
-              </IconButton>
-            </ListItemIcon>
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                value={index}
-                onClick={handleDelete}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
-    </List>
-  );
+  const listItems = todos.map(todo => (
+    <ListItem key={todo.id} role={undefined} dense>
+      <ListItemText id={todo.id} primary={todo.text} />
+      <ListItemIcon>
+        <IconButton aria-label="done" value={todo.id} onClick={handleDone}>
+          <DoneIcon />
+        </IconButton>
+      </ListItemIcon>
+      <ListItemSecondaryAction>
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          value={todo.id}
+          onClick={handleDelete}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  ));
+
+  return <List>{listItems}</List>;
 };
 
 export default TodoList;

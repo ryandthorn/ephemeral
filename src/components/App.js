@@ -2,16 +2,18 @@ import React from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import Container from "@material-ui/core/Container";
+import useTodos from "../hooks/useTodos";
 
 const App = () => {
-  const [todos, setTodos] = React.useState([
-    { text: "Example", isCompleted: false }
-  ]);
-
+  const [todos, createTodo, deleteTodo, completeTodo] = useTodos();
   return (
     <Container className="App" maxWidth="sm">
-      <TodoForm todos={todos} setTodos={setTodos}></TodoForm>
-      <TodoList todos={todos} setTodos={setTodos}></TodoList>
+      <TodoForm createTodo={createTodo}></TodoForm>
+      <TodoList
+        todos={todos}
+        deleteTodo={deleteTodo}
+        completeTodo={completeTodo}
+      ></TodoList>
     </Container>
   );
 };

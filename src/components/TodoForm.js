@@ -4,34 +4,27 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
 
-const TodoForm = props => {
-  const [todoText, setTodoText] = React.useState("");
-
+const TodoForm = ({ createTodo }) => {
   const handleSubmit = event => {
     event.preventDefault();
-    const newTodo = { text: todoText, isCompleted: false };
-    const updatedTodos = [...props.todos, newTodo];
-    props.setTodos(updatedTodos);
-    setTodoText("");
+    const input = document.getElementById("Input");
+    const todoText = input.value;
+    input.value = "";
+    createTodo(todoText);
   };
 
   return (
     <Grid
       container
       component="form"
-      onSubmit={e => handleSubmit(e)}
+      onSubmit={handleSubmit}
       direction="row"
       justify="space-evenly"
       alignItems="center"
     >
       <Grid item>
         <InputLabel htmlFor="Input">Enter a task</InputLabel>
-        <Input
-          id="Input"
-          value={todoText}
-          autoFocus
-          onChange={e => setTodoText(e.target.value)}
-        ></Input>
+        <Input id="Input" autoFocus required></Input>
       </Grid>
       <Grid item>
         <Button variant="contained" color="primary" type="submit">
