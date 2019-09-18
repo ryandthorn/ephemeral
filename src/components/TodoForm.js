@@ -10,7 +10,9 @@ const TodoForm = ({ createTodo }) => {
     const input = document.getElementById("Input");
     const todoText = input.value;
     input.value = "";
-    createTodo(todoText);
+    // To do: create duration input
+    const duration = 5000; // Hardcoded for 5 seconds
+    createTodo(todoText, duration);
   };
 
   return (

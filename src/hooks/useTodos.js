@@ -10,19 +10,18 @@ export default function useTodos() {
   });
 
   // Helper
-  const generateID = _todos => {
-    const greatestID = _todos.reduce(
-      (greatestID, todo) => (todo.id > greatestID ? todo.id : greatestID),
-      0
-    );
-    return 1 + greatestID(_todos);
+  const generateTimestamps = duration => {
+    const id = Date.now();
+    const expiration = id + duration;
+    return { id, expiration };
   };
 
   // API
-  const createTodo = text => {
-    const id = generateID(todos);
+  const createTodo = (text, duration) => {
+    const { id, expiration } = generateTimestamps(duration);
     const todo = {
       id,
+      expiration,
       text,
       isCompleted: false
     };
@@ -42,5 +41,5 @@ export default function useTodos() {
     setTodos(newTodos);
   };
 
-  return [todos, createTodo, deleteTodo, completeTodo];
+  return [todos, createTodo, deleteTodo, completeTodo, setTodos];
 }
