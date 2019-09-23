@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 
 export default function useTodos() {
+  // Storage
   const storedTodos = JSON.parse(window.localStorage.getItem("todos"));
-  const base = [{ id: 0, text: "Example", isCompleted: false }];
+  const base = [
+    { id: Date.now(), text: "Example", isCompleted: false, isExpired: false }
+  ];
   const [todos, setTodos] = useState(storedTodos || base);
 
   useEffect(() => {
@@ -23,7 +26,8 @@ export default function useTodos() {
       id,
       expiration,
       text,
-      isCompleted: false
+      isCompleted: false,
+      isExpired: false
     };
     const newTodos = [...todos, todo];
     setTodos(newTodos);

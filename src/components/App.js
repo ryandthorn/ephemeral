@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
+import TodoContainer from "./TodoContainer";
 import Container from "@material-ui/core/Container";
 import useTodos from "../hooks/useTodos";
 import useInterval from "../hooks/useInterval";
@@ -11,9 +11,13 @@ const App = () => {
 
   function handleExpiration() {
     const now = Date.now();
-    const valid = todos.filter(todo => now < todo.expiration);
-    // To do: maybe find a better way to update todos than exposing setTodos
-    setTodos(valid);
+    const checked = todos.map(todo => {
+      if (now >= todo.expiration) {
+        todo.isExpired = true;
+      }
+      return todo;
+    });
+    setTodos(checked);
   }
 
   useInterval(() => {
@@ -24,11 +28,11 @@ const App = () => {
   return (
     <Container className="App" maxWidth="sm">
       <TodoForm createTodo={createTodo}></TodoForm>
-      <TodoList
+      <TodoContainer
         todos={todos}
         deleteTodo={deleteTodo}
         completeTodo={completeTodo}
-      ></TodoList>
+      ></TodoContainer>
     </Container>
   );
 };
