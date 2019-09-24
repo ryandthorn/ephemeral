@@ -1,12 +1,24 @@
 import React from "react";
+import { makeStyles } from "@material-ui/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
 import TabPanel from "./TabPanel";
 import TodoList from "./TodoList";
 
+const useStyles = makeStyles({
+  container: {
+    marginTop: "1rem",
+    maxWidth: "100vw"
+  },
+  tab: {
+    width: "33%"
+  }
+});
+
 export default function TodoNav({ todos, deleteTodo, completeTodo }) {
+  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -14,12 +26,12 @@ export default function TodoNav({ todos, deleteTodo, completeTodo }) {
   };
 
   return (
-    <Container className="TodoContainer">
+    <Paper className={classes.container}>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange}>
-          <Tab label="Active" index={0} />
-          <Tab label="Completed" index={1} />
-          <Tab label="Missed" index={2} />
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab className={classes.tab} label="Active" index={0} />
+          <Tab className={classes.tab} label="Completed" index={1} />
+          <Tab className={classes.tab} label="Missed" index={2} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -49,6 +61,6 @@ export default function TodoNav({ todos, deleteTodo, completeTodo }) {
           id="TodoList-missed"
         />
       </TabPanel>
-    </Container>
+    </Paper>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Hero from "./Hero";
 import TodoForm from "./TodoForm";
 import TodoContainer from "./TodoContainer";
 import Container from "@material-ui/core/Container";
@@ -27,6 +28,7 @@ const App = () => {
 
   return (
     <Container className="App" maxWidth="sm">
+      <Hero />
       <TodoForm createTodo={createTodo}></TodoForm>
       <TodoContainer
         todos={todos}

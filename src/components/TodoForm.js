@@ -1,21 +1,31 @@
 import React from "react";
+import { makeStyles } from "@material-ui/styles";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
-import SetTodoTime from "./SetTodoTime";
+
+const useStyles = makeStyles({
+  root: {
+    margin: "1rem auto",
+    padding: 0
+  },
+  textInput: {
+    width: "100%"
+  }
+});
 
 const TodoForm = ({ createTodo }) => {
+  const classes = useStyles();
+
   const handleSubmit = event => {
     event.preventDefault();
     const todoText = document.getElementById("todoText");
     const text = todoText.value;
     todoText.value = "";
 
-    const hours = document.getElementById("hours").value;
     const minutes = document.getElementById("minutes").value;
-    const seconds = document.getElementById("seconds").value;
-    const duration = hours * 3600000 + minutes * 60000 + seconds * 1000;
+    const duration = minutes * 60000;
     if (!duration) {
       // To do
       console.log("Handle input of 0ms");
@@ -31,19 +41,41 @@ const TodoForm = ({ createTodo }) => {
       component="form"
       onSubmit={handleSubmit}
       direction="row"
-      justify="space-evenly"
       alignItems="center"
+      className={classes.root}
+      spacing={3}
+      xs={12}
     >
-      <Grid item>
+      <Grid item className={classes.gridItem} xs={6}>
         <InputLabel htmlFor="todoText">Enter a task</InputLabel>
-        <Input id="todoText" autoFocus required></Input>
+        <Input
+          id="todoText"
+          className={classes.textInput}
+          autoFocus
+          required
+        ></Input>
       </Grid>
-      <Grid item>
-        <Button variant="contained" color="primary" type="submit">
+      <Grid item xs={3}>
+        <InputLabel htmlFor="minutes">Minutes</InputLabel>
+        <Input
+          id="minutes"
+          required
+          className={classes.timeInput}
+          type="number"
+          defaultValue={25}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <Button
+          className={classes.buttonAdd}
+          variant="contained"
+          color="secondary"
+          type="submit"
+          fullWidth
+        >
           Add
         </Button>
       </Grid>
-      <SetTodoTime />
     </Grid>
   );
 };
