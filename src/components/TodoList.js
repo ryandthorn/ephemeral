@@ -55,9 +55,8 @@ const TodoList = ({ todos, deleteTodo, completeTodo, activeTab }) => {
 
   const minutesLeft = todo =>
     todo.isCompleted === false && todo.isExpired === false
-      ? `${Math.floor(
-          (todo.expiration - Date.now()) / 60000
-        )} minutes remaining`
+      ? `${Math.floor((todo.expiration - Date.now()) / 60000) +
+          1} minutes remaining`
       : null;
 
   const listItems = filteredTodos.map(todo => (
