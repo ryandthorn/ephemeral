@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 const TodoList = ({ todos, deleteTodo, completeTodo, activeTab }) => {
   const classes = useStyles();
 
+  // Event handlers
   const handleDone = event => {
     const id = Number(event.currentTarget.value);
     completeTodo(id);
@@ -31,43 +32,54 @@ const TodoList = ({ todos, deleteTodo, completeTodo, activeTab }) => {
     deleteTodo(id);
   };
 
+  // Filter collection of todos into active, completed, or missed todos
+  const filterActiveTodos = todos =>
+    todos.filter(
+      todo => todo.isCompleted === false && todo.isExpired === false
+    );
+  const filterCompletedTodos = todos =>
+    todos.filter(todo => todo.isCompleted === true);
+  const filterMissedTodos = todos =>
+    todos.filter(todo => todo.isCompleted === false && todo.isExpired === true);
+
   let filteredTodos;
   switch (activeTab) {
     case "active":
-      filteredTodos = todos.filter(
-        todo => todo.isCompleted === false && todo.isExpired === false
-      );
+      filteredTodos = filterActiveTodos(todos);
       break;
     case "completed":
-      filteredTodos = todos.filter(todo => todo.isCompleted === true);
+      filteredTodos = filterCompletedTodos(todos);
       break;
     case "missed":
-      filteredTodos = todos.filter(
-        todo => todo.isCompleted === false && todo.isExpired === true
-      );
+      filteredTodos = filterMissedTodos(todos);
       break;
     default:
       break;
   }
 
-  const renderCompleteButton = todo =>
-    todo.isCompleted === true || todo.isExpired === true ? false : true;
+  // Helper functions for generating list
+  const shouldRenderCompleteButton = todo =>
+    todo.isCompleted === false && todo.isExpired === false;
+  const displayTimeRemaining = todo => {
+    // Convert milliseconds to minutes
+    const minutes = Math.floor((todo.expiration - Date.now()) / 60000) + 1;
+    return `${minutes} minutes remaining`;
+  };
+  const timeRemaining = todo =>
+    todo.isCompleted === false &&
+    todo.isExpired === false &&
+    displayTimeRemaining(todo);
 
-  const minutesLeft = todo =>
-    todo.isCompleted === false && todo.isExpired === false
-      ? `${Math.floor((todo.expiration - Date.now()) / 60000) +
-          1} minutes remaining`
-      : null;
-
+  // Generate list of filtered todos
   const listItems = filteredTodos.map(todo => (
     <ListItem key={todo.id} role={undefined} dense>
       <ListItemText
         id={todo.id}
         primary={todo.text}
-        secondary={minutesLeft(todo)}
+        secondary={timeRemaining(todo)}
         className={classes.text}
       />
-      {renderCompleteButton(todo) && (
+      {shouldRenderCompleteButton(todo) && (
         <ListItemIcon>
           <IconButton aria-label="done" value={todo.id} onClick={handleDone}>
             <DoneIcon />
@@ -88,7 +100,7 @@ const TodoList = ({ todos, deleteTodo, completeTodo, activeTab }) => {
   ));
 
   const empty = <ListItem className={classes.empty}>- empty -</ListItem>;
-
+  // If there are no todos in category, display [- empty -]
   return <List>{listItems.length === 0 ? empty : listItems}</List>;
 };
 
