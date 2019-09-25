@@ -33,15 +33,15 @@ const TodoList = ({ todos, deleteTodo, completeTodo, activeTab }) => {
 
   let filteredTodos;
   switch (activeTab) {
-    case 0:
+    case "active":
       filteredTodos = todos.filter(
         todo => todo.isCompleted === false && todo.isExpired === false
       );
       break;
-    case 1:
+    case "completed":
       filteredTodos = todos.filter(todo => todo.isCompleted === true);
       break;
-    case 2:
+    case "missed":
       filteredTodos = todos.filter(
         todo => todo.isCompleted === false && todo.isExpired === true
       );

@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 export default function TodoNav({ todos, deleteTodo, completeTodo }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("active");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -29,36 +29,33 @@ export default function TodoNav({ todos, deleteTodo, completeTodo }) {
     <Paper className={classes.container}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab className={classes.tab} label="Active" index={0} />
-          <Tab className={classes.tab} label="Completed" index={1} />
-          <Tab className={classes.tab} label="Missed" index={2} />
+          <Tab className={classes.tab} label="Active" value={"active"} />
+          <Tab className={classes.tab} label="Completed" value={"completed"} />
+          <Tab className={classes.tab} label="Missed" value={"missed"} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={"active"}>
         <TodoList
           todos={todos}
           deleteTodo={deleteTodo}
           completeTodo={completeTodo}
-          activeTab={0}
-          id="TodoList-active"
+          activeTab={"active"}
         />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={"completed"}>
         <TodoList
           todos={todos}
           deleteTodo={deleteTodo}
           completeTodo={completeTodo}
-          activeTab={1}
-          id="TodoList-completed"
+          activeTab={"completed"}
         />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={"missed"}>
         <TodoList
           todos={todos}
           deleteTodo={deleteTodo}
           completeTodo={completeTodo}
-          activeTab={2}
-          id="TodoList-missed"
+          activeTab={"missed"}
         />
       </TabPanel>
     </Paper>

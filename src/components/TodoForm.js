@@ -44,7 +44,6 @@ const TodoForm = ({ createTodo }) => {
       alignItems="center"
       className={classes.root}
       spacing={3}
-      xs={12}
     >
       <Grid item className={classes.gridItem} xs={6}>
         <InputLabel htmlFor="todoText">Enter a task</InputLabel>
