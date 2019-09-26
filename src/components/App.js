@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import Hero from "./Hero";
 import TodoForm from "./TodoForm";
 import TodoContainer from "./TodoContainer";
@@ -27,15 +28,17 @@ const App = () => {
   }, 1000);
 
   return (
-    <Container className="App" maxWidth="sm">
-      <Hero />
-      <TodoForm createTodo={createTodo}></TodoForm>
-      <TodoContainer
-        todos={todos}
-        deleteTodo={deleteTodo}
-        completeTodo={completeTodo}
-      ></TodoContainer>
-    </Container>
+    <BrowserRouter>
+      <Container className="App" maxWidth="sm">
+        <Hero />
+        <TodoForm createTodo={createTodo}></TodoForm>
+        <TodoContainer
+          todos={todos}
+          deleteTodo={deleteTodo}
+          completeTodo={completeTodo}
+        ></TodoContainer>
+      </Container>
+    </BrowserRouter>
   );
 };
 
