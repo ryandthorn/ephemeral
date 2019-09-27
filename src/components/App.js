@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container";
 import useTodos from "../hooks/useTodos";
 import useInterval from "../hooks/useInterval";
 
-export default function App() {
+export default function App({ match }) {
   const [todos, createTodo, deleteTodo, completeTodo, setTodos] = useTodos();
   const [timer, setTimer] = useState(0);
 
